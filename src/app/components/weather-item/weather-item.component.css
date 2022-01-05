@@ -1,0 +1,56 @@
+.example-card {
+  max-width: 500px;
+}
+
+.example-header-image {
+  background-size: cover;
+}
+
+.example-form-field {
+  width: 500px;
+}
+
+.forecastTitle{
+  padding-left: 3.5rem;
+  padding-bottom: 1rem;
+  color: black
+}
+
+.weatherIcon{
+  width: 50px
+}
+
+.panelContent {
+  text-align:center
+}
+
+.matSubtitle {
+  padding-left: 3.5rem;
+  padding-top: 0rem;
+  margin-top: 0rem;
+  color: indigo
+ }
+
+ .buttonSpacer{
+  margin-left: 0.3rem;
+ }
+
+ .sliderPosition{
+  text-align: end;
+ }
+
+mat-form-field {
+  background-color: rgba(255, 255, 255, 0);
+ }
+
+mat-card-content {
+  text-align: center;
+ }
+
+mat-panel-description {
+  margin:auto;
+  padding-right: 1rem;
+ }
+
+
+

@@ -1,0 +1,51 @@
+<mat-card class="example-card">
+  <div class = "sliderPosition">
+    <mat-slide-toggle color="primary" [checked]="currentLocationValue" (change)="setCurrentLocationValue($event)"> {{currentLocationLabelText}}
+    </mat-slide-toggle>
+   </div>
+  <mat-card-subtitle> {{weatherLabelText}}
+  </mat-card-subtitle>
+  <mat-form-field class="example-form-field"appearance="fill">
+    <mat-label>{{cityLabelText}}</mat-label>
+    <input matInput type="text" [disabled]="inputActive" [placeholder]="placeholderText" matInput
+    [(ngModel)]="value" (keydown.enter)="getCityWeatherData()">
+    <button *ngIf="value || currentLocationValue" color="primary" matSuffix mat-mini-fab aria-label="Clear" (click)="getWeatherData()">
+    <mat-icon>{{matIconSearch}}</mat-icon>
+    </button>
+    <button *ngIf="!weatherItem.isEmpty && value || currentLocationValue" class = "buttonSpacer" color="primary" matSuffix mat-mini-fab aria-label="Clear" (click)="getWeatherData()">
+      <mat-icon>{{matIconRefresh}}</mat-icon>
+      </button>
+  </mat-form-field>
+  <div *ngIf="!weatherItem.isEmpty">
+  <mat-card-subtitle class="matSubtitle"> {{currentDateLabelText}}</mat-card-subtitle>
+  <mat-card-header >
+    <div mat-card-avatar class="example-header-image" [ngStyle]="{'background-image': 'URL('+ getWeatherIcon(weatherItem.iconID) +')'}"></div>
+    <mat-card-title>{{weatherItem.temperature | number : '1.0-0'}}{{temperatureUnit}} | {{weatherItem.description}}</mat-card-title>
+    <mat-card-subtitle>{{weatherItem.cityName}}, {{weatherItem.countryCode}} - {{ getDateOfCity() | date: 'MMM d, y, h:mm a'}}</mat-card-subtitle>
+  </mat-card-header>
+  <img mat-card-image [src]="cityImagePath">
+  <mat-card-content>
+    <p>
+      <mat-card-subtitle>{{humidityLabelText}} {{weatherItem.humidity | number : '1.0-0'}} {{humidityUnit}} | {{windLabelText}} {{weatherItem.wind | number : '1.0-0'}} {{windUnit}}</mat-card-subtitle>
+    </p>
+  </mat-card-content>
+</div>
+  <mat-card-actions>
+  </mat-card-actions>
+  <mat-accordion *ngIf="fiveDayForecast.length > 0">
+    <mat-card-title class="forecastTitle">{{forecastLabelText}}</mat-card-title>
+    <mat-expansion-panel (opened)="true ? 'open' : 'closed'" *ngFor="let forecastItem of fiveDayForecast">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-card-header>
+            <div mat-card-avatar class="weatherIcon" [ngStyle]="{'background-image': 'URL('+ getWeatherIcon(forecastItem.iconID)+')'}"></div>
+          </mat-card-header>
+        </mat-panel-title>
+        <mat-panel-description>
+         {{getDay(forecastItem) | date: 'EE, MMM d' }} | {{forecastItem.temperature | number : '1.0-0'}}{{temperatureUnit}} | {{forecastItem.description}}
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <p class="panelContent">{{humidityLabelText}} {{forecastItem.humidity | number : '1.0-0'}} {{humidityUnit}} | {{windLabelText}} {{forecastItem.wind | number : '1.0-0'}} {{windUnit}}</p>
+    </mat-expansion-panel>
+  </mat-accordion>
+</mat-card>
